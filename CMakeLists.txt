@@ -54,7 +54,8 @@ endif()
 #==============================
 
 # Boost
-find_package(Boost 1.71 REQUIRED COMPONENTS system)
+find_package(Boost 1.71 REQUIRED COMPONENTS stacktrace_backtrace)
+target_compile_definitions(${TARGET_NAME} PRIVATE -DBOOST_STACKTRACE_LINK -DBOOST_STACKTRACE_USE_BACKTRACE)
 target_include_directories(${TARGET_NAME} PUBLIC ${Boost_INCLUDE_DIRS})
 target_link_libraries(${TARGET_NAME} PUBLIC ${Boost_LIBRARIES})
 
