@@ -11,7 +11,21 @@ namespace Gaia::Exceptions
 		CallStack = boost::stacktrace::stacktrace();
 		std::stringstream message_builder;
 		message_builder << "[" << Title << "] " << Message << " :" << std::endl;
-		message_builder << CallStack << std::endl;
+
+		// Print the call stack, and will print the source file and line number in debug mode.
+		unsigned int frame_index = 0;
+		for (const auto& frame : CallStack)
+		{
+			message_builder << "#" << frame_index << " " << frame.name() << std::endl;
+			#ifdef DEBUG
+			if (!frame.source_file().empty())
+			{
+				message_builder << "    in " << frame.source_file() << " : " << frame.source_line() << std::endl;
+			}
+			#endif
+			++frame_index;
+		}
+
 		FormattedContent = message_builder.str();
 	}
 
