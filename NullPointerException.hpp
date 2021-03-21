@@ -38,7 +38,7 @@ namespace Gaia::Exceptions
 		template<typename PointerType>
 		static inline void ThrowIfNull(PointerType* pointer, const std::string& message = "None")
 		{
-			if (pointer)
+			if (!pointer)
 			{
 				throw NullPointerException(pointer, message);
 			}
