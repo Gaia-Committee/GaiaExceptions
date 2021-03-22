@@ -29,17 +29,36 @@ set(CMAKE_CXX_STANDARD 17)
 # Source
 #==============================
 
+# Macro which is used to find .cpp files recursively.
+macro(find_cpp path list_name)
+    file(GLOB_RECURSE _tmp_list RELATIVE ${CMAKE_SOURCE_DIR} ${path}/*.cpp)
+    set(${list_name})
+    foreach(f ${_tmp_list})
+        if(NOT f MATCHES "cmake-*")
+            list(APPEND ${list_name} ${f})
+        endif()
+    endforeach()
+endmacro()
+
+# Macro which is used to find .hpp files recursively.
+macro(find_hpp path list_name)
+    file(GLOB_RECURSE _tmp_list RELATIVE ${CMAKE_SOURCE_DIR} ${path}/*.hpp)
+    set(${list_name})
+    foreach(f ${_tmp_list})
+        if(NOT f MATCHES "cmake-*")
+            list(APPEND ${list_name} ${f})
+        endif()
+    endforeach()
+endmacro()
+
 #------------------------------
 # C++
 #------------------------------
 
-file(GLOB TARGET_HOME_SOURCE "*.cpp")
-file(GLOB TARGET_HOME_HEADER "*.hpp")
-
 # C++ Source Files
-set(TARGET_SOURCE ${TARGET_HOME_SOURCE})
+find_cpp(${CMAKE_SOURCE_DIR} TARGET_SOURCE)
 # C++ Header Files
-set(TARGET_HEADER ${TARGET_HOME_HEADER})
+find_hpp(${CMAKE_SOURCE_DIR} TARGET_HEADER)
 
 #==============================
 # Compile Targets
@@ -68,3 +87,15 @@ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
     find_package(Threads)
     target_link_libraries(${TARGET_NAME} PUBLIC ${CMAKE_THREAD_LIBS_INIT})
 endif()
+
+#===============================
+# Install Scripts
+#===============================
+
+# Install executable files and libraries to 'default_path/'.
+install(TARGETS ${TARGET_NAME}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+# Install header files to 'default_path/TARGET_NAME/'
+install(FILES ${TARGET_HEADER} DESTINATION  ${CMAKE_INSTALL_PREFIX}/include/${TARGET_NAME}/)
