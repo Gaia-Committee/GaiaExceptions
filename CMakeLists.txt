@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.10)
 #==============================
 
 if (NOT PROJECT_DECLARED)
-    project("GaiaExceptions" LANGUAGES CXX)
+    project("Gaia Exceptions" LANGUAGES CXX)
     set(PROJECT_DECLARED)
 endif()
 
