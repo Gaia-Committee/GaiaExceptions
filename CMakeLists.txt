@@ -32,10 +32,14 @@ set(CMAKE_CXX_STANDARD 17)
 #------------------------------
 # C++
 #------------------------------
+
+file(GLOB TARGET_HOME_SOURCE "*.cpp")
+file(GLOB TARGET_HOME_HEADER "*.hpp")
+
 # C++ Source Files
-file(GLOB_RECURSE TARGET_SOURCE "*.cpp")
+set(TARGET_SOURCE ${TARGET_HOME_SOURCE})
 # C++ Header Files
-file(GLOB_RECURSE TARGET_HEADER "*.hpp")
+set(TARGET_HEADER ${TARGET_HOME_HEADER})
 
 #==============================
 # Compile Targets
