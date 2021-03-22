@@ -17,7 +17,7 @@ endif()
 # Unit Settings
 #==============================
 
-set(TARGET_NAME ".")
+set(TARGET_NAME "GaiaExceptions")
 
 #==============================
 # Command Lines
