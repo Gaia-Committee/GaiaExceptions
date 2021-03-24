@@ -18,3 +18,7 @@ endif()
 #==============================
 
 add_subdirectory("GaiaExceptions")
+
+if (WITH_TEST)
+    add_subdirectory("UnitTest")
+endif()
