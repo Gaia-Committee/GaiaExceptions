@@ -9,6 +9,12 @@ namespace Gaia::Exceptions
 			Title(std::move(title)), Message(std::move(message))
 	{
 		CallStack = boost::stacktrace::stacktrace();
+		RegenerateFormattedContent();
+	}
+
+	/// Regenerate the content of FormattedContent according to the content of Message.
+	void ExceptionBase::RegenerateFormattedContent()
+	{
 		std::stringstream message_builder;
 		message_builder << "[" << Title << "] " << Message << " :" << std::endl;
 
@@ -27,6 +33,13 @@ namespace Gaia::Exceptions
 		}
 
 		FormattedContent = message_builder.str();
+	}
+
+	/// Reset the content of message and regenerate the FormattedContent.
+	void ExceptionBase::SetMessage(std::string message)
+	{
+		Message = std::move(message);
+		RegenerateFormattedContent();
 	}
 
 	/// Extract the location from the call stack.

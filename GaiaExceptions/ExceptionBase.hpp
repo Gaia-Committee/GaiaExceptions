@@ -26,6 +26,16 @@ namespace Gaia::Exceptions
 		 */
 		std::string FormattedContent;
 
+		/// Regenerate the content of FormattedContent according to the content of Message.
+		void RegenerateFormattedContent();
+
+	protected:
+		/**
+		 * @brief Reset the content of message and regenerate the FormattedContent.
+		 * @param message Message Text.
+		 */
+		void SetMessage(std::string message);
+
 	public:
 		/**
 		 * @brief Default constructor.
