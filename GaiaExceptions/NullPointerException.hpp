@@ -4,9 +4,6 @@
 
 namespace Gaia::Exceptions
 {
-	/// The title of NullPointerException, its value is "NullPointer"
-	extern const char NullPointerExceptionName[];
-
 	/**
 	 * @brief This exception occurs when a null pointer is used or given.
 	 * @details
