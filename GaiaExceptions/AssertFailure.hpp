@@ -4,6 +4,13 @@
 
 namespace Gaia::Exceptions
 {
+    /**
+     * @brief This exception usually occurs when a manually appointed condition is unsatisfied.
+     * @details
+     *  This exception can be used to describe a disorder of the program.
+     *  For example, it can be thrown when some functions are not invoked according to the right sequence designed by
+     *  the developer, or some files should exist but actually not.
+     */
     class AssertFailure : public ExceptionBase
     {
     public:
