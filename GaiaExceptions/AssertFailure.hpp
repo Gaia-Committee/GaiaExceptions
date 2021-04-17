@@ -18,8 +18,8 @@ namespace Gaia::Exceptions
 		 * @brief Constructor which will automatically write down the condition information into the message.
 		 * @param condition The assert condition which should be satisfied.
 		 */
-        explicit AssertFailure(const std::string& condition = "None") :
-            ExceptionBase("AssertFailed", "Assert:" + condition + " Failed." + message)
+        explicit AssertFailure(const std::string& condition = "Hidden Expression") :
+            ExceptionBase("AssertFailed", "Assert:" + condition + " Failed.")
         {}
 
         /**
