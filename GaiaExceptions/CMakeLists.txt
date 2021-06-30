@@ -77,10 +77,10 @@ endif()
 #==============================
 
 # Boost
-find_package(Boost 1.71 REQUIRED COMPONENTS stacktrace_backtrace)
+find_package(Boost 1.65 REQUIRED COMPONENTS stacktrace_backtrace)
 target_compile_definitions(${TARGET_NAME} PRIVATE -DBOOST_STACKTRACE_LINK -DBOOST_STACKTRACE_USE_BACKTRACE)
 target_include_directories(${TARGET_NAME} PUBLIC ${Boost_INCLUDE_DIRS})
-target_link_libraries(${TARGET_NAME} PUBLIC  ${Boost_LIBRARIES})
+target_link_libraries(${TARGET_NAME} PUBLIC ${Boost_LIBRARIES})
 
 # In Linux, 'Threads' need to explicitly linked.
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
