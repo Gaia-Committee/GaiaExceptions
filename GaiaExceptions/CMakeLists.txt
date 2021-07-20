@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.10)
 #==============================
 
 if (NOT PROJECT_DECLARED)
-    project("Gaia Exceptions" LANGUAGES CXX)
+    project("Gaia Exceptions" LANGUAGES CXX VERSION 0.9.0)
     set(PROJECT_DECLARED)
 endif()
 
@@ -18,6 +18,9 @@ endif()
 #==============================
 
 set(TARGET_NAME "GaiaExceptions")
+set(TARGET_VERSION 0.9.0)
+set(INSTALL_NAMESPACE "Gaia")
+set(INSTALL_NAME "Exceptions")
 
 #==============================
 # Command Lines
@@ -66,6 +69,8 @@ find_hpp(${CMAKE_CURRENT_SOURCE_DIR} TARGET_HEADER)
 
 # To lower the running cost, this module will be compiled as a static library.
 add_library(${TARGET_NAME} SHARED ${TARGET_SOURCE} ${TARGET_HEADER} ${TARGET_CUDA_SOURCE} ${TARGET_CUDA_HEADER})
+# Set version property.
+set_target_properties(${TARGET_NAME} PROPERTIES VERSION ${TARGET_VERSION})
 
 # Enable 'DEBUG' Macro in Debug Mode
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
@@ -92,10 +97,20 @@ endif()
 # Install Scripts
 #===============================
 
+configure_file(
+        "${PROJECT_SOURCE_DIR}/${TARGET_NAME}Config.hpp.in"
+        "${PROJECT_BINARY_DIR}/${TARGET_NAME}Config.hpp")
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 # Install executable files and libraries to 'default_path/'.
 install(TARGETS ${TARGET_NAME}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+        EXPORT ${TARGET_NAME}-targets
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+        LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 # Install header files to 'default_path/TARGET_NAME/'
 install(DIRECTORY "." DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${TARGET_NAME}/ FILES_MATCHING PATTERN "*.hpp")
+install(EXPORT ${TARGET_NAME}-targets
+        NAMESPACE ${INSTALL_NAMESPACE}::
+        FILE ${TARGET_NAME}Config.cmake
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/${TARGET_NAME})
