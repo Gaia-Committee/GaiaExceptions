@@ -20,7 +20,6 @@ endif()
 set(TARGET_NAME "GaiaExceptions")
 set(TARGET_VERSION 0.9.0)
 set(INSTALL_NAMESPACE "Gaia")
-set(INSTALL_NAME "Exceptions")
 
 #==============================
 # Command Lines
