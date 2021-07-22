@@ -80,6 +80,12 @@ endif()
 target_include_directories(${TARGET_NAME} PUBLIC "../")
 target_link_libraries(${TARGET_NAME} PUBLIC "GaiaExceptions")
 
+# Boost
+find_package(Boost 1.65 REQUIRED COMPONENTS stacktrace_backtrace)
+target_compile_definitions(${TARGET_NAME} PRIVATE -DBOOST_STACKTRACE_LINK -DBOOST_STACKTRACE_USE_BACKTRACE)
+target_include_directories(${TARGET_NAME} PUBLIC ${Boost_INCLUDE_DIRS})
+target_link_libraries(${TARGET_NAME} PRIVATE Boost::stacktrace_backtrace)
+
 # GTest for Unit Test
 find_package(GTest REQUIRED)
 target_include_directories(${TARGET_NAME} PUBLIC ${GTEST_INCLUDE_DIRS})
