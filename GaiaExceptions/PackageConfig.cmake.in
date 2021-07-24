@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-find_package(Boost REQUIRED COMPONENTS stacktrace_backtrace)
+find_package(Boost REQUIRED)
 
 include(@CONFIG_INSTALL_PATH@/@TARGET_NAMESPACE@@TARGET_NAME@Targets.cmake)
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
